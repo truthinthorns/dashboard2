@@ -26,7 +26,7 @@ nws_links = {
 }
 
 def get_forecast_links(coords):
-    result = requests.get(f'https://api.weather.gov/points/{coords}').json()    # nws_links["hourly"] = result["properties"]["forecastHourly"]
+    result = requests.get(f'https://api.weather.gov/points/{coords}').json()
     nws_links["weekly"] = result["properties"]["forecast"]
     nws_links["hourly"] = result["properties"]["forecastHourly"]
     return result

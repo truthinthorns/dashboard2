@@ -1,7 +1,8 @@
 <template>
-    <weekly-weather></weekly-weather>
+    <daily-forecast></daily-forecast>
+    Add today's weather and the other stuff here.
 </template>
 
 <script setup lang="ts">
-import WeeklyWeather from './WeeklyWeather.vue'
+import DailyForecast from '../components/DailyForecast.vue'
 </script>
