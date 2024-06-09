@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import weeklyForecast from '../models/weeklyForecast';
+import hourlyForecast from '../models/hourlyForecast';
 
 export const useWeatherStore = defineStore('weather', {
     state: () => ({
         weeklyForecast: [] as weeklyForecast[],
-        hourlyForecast: [] as any[]
+        hourlyForecast: [] as hourlyForecast[],
+        coords: String
     }),
     actions: {
         async getWeekly() {

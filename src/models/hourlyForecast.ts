@@ -1,14 +1,17 @@
 export default class WeeklyForecast {
-  detailedForecast: String;
-  dewpoint: {
+  number: number;
+  name: String;
+  startTime: String;
+  endTime: String;
+  isDaytime: boolean;
+  temperature: number;
+  temperatureUnit: String;
+  temperatureTrend: String;
+  probabilityOfPrecipitation: {
     unitCode: String;
     value: number;
   };
-  endTime: Date;
-  icon: String;
-  isDaytime: boolean;
-  name: String;
-  probabilityOfPrecipitation: {
+  dewpoint: {
     unitCode: String;
     value: number;
   };
@@ -16,15 +19,14 @@ export default class WeeklyForecast {
     unitCode: String;
     value: number;
   };
-  shortForecast: String;
-  startTime: Date;
-  temperature: number;
-  temperatureTrend: String;
-  temperatureUnit: String;
-  windDirection: String;
   windSpeed: String;
+  windDirection: String;
+  icon: String;
+  shortForecast: String;
+  detailedForecast: String;
 
   constructor(
+    number: number,
     detailedForecast: String,
     dewpoint: {
       unitCode: String;

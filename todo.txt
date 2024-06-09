@@ -1,5 +1,1 @@
-Intead of getting just the first half of the forecast, get both and do a little bit of a data manipulation to combine them into one.
-It could be one endpoint for the condensed version, and a separate one that gives more details.
-On the frontend, look into adding tabs on the modal so that the detailedForecast field can be shown on one, then the highlights on the other.
-For the daily forecast, could look into adding the small version of the icon, but it could be unnecessary. 
 

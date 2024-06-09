@@ -5,6 +5,23 @@ from fastapi.encoders import jsonable_encoder
 # from fastapi.responses import JSONResponse
 
 
+coords = "39.76,-84.08"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app = FastAPI()
 
 origins = [
@@ -19,35 +36,32 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-coords = "39.770013,-84.082311"
-nws_links = {
-    "weekly": "",
-    "hourly": ""
-}
-
-def get_forecast_links(coords):
+def get_forecast_links(hourly: bool):
     result = requests.get(f'https://api.weather.gov/points/{coords}').json()
-    nws_links["weekly"] = result["properties"]["forecast"]
-    nws_links["hourly"] = result["properties"]["forecastHourly"]
-    return result
-
-get_forecast_links(coords)
+    if hourly:
+        return result["properties"]["forecastHourly"]
+    else:
+        return result["properties"]["forecast"]
 
 
 @app.get('/hourly')
-async def get_weekly_forecast():
-    result = requests.get(nws_links["hourly"]).json()
+async def get_hourly_forecast():
+    global coords
+    link = get_forecast_links(True)
+    result = requests.get(link).json()
     new_result = jsonable_encoder(result['properties']['periods'])
     return new_result
 
 
 @app.get('/weekly')
 async def get_weekly_forecast():
-    result = requests.get(nws_links["weekly"]).json()
+    global coords
+    link = get_forecast_links(False)
+    result = requests.get(link).json()
     new_result = jsonable_encoder(result['properties']['periods'])
     return new_result
     
 
-@app.get('/dashboard')
-async def dashboard():
-    return nws_links
+# @app.get('/dashboard')
+# async def dashboard():
+#     return nws_links
