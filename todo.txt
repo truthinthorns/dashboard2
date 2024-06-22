@@ -1,1 +1,1 @@
-
+When looping on the weekly forecast to create cards, before when I was testing, there was only two parts per day. Depending on the time of day (now at 2:30am for example), there could be three parts for one day, so it breaks the logic. Figure out a way to improve the loop so it is more efficient and can handle that scenario.
