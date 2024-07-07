@@ -45,8 +45,8 @@ const formatForecast = computed(() => {
         highTemp: string;
         dayPrecipitation: string;
         nightPrecipitation: string;
-        dayHumidity: string;
-        nightHumidity: string;
+        //dayHumidity: string;
+        //nightHumidity: string;
         dayWind: string;
         nightWind: string;
         dayIcon: string;
@@ -66,7 +66,7 @@ const formatForecast = computed(() => {
         const wDate = new Date(w.startTime).toDateString();
         if(previousDate === null) {
             if(new Date(weatherStore.weeklyForecast[i+1].startTime).toDateString() !== wDate) {
-                newForecast.nightHumidity = `${w.relativeHumidity.value}%`
+                //newForecast.nightHumidity = `${w.relativeHumidity.value}%`
                 newForecast.nightPrecipitation = `${w.probabilityOfPrecipitation.value !== null ? w.probabilityOfPrecipitation.value : 0}%`
                 newForecast.nightWind = `${w.windSpeed} ${w.windDirection}`
                 newForecast.nightIcon = w.icon;
@@ -80,7 +80,7 @@ const formatForecast = computed(() => {
                 newForecasts.push(newForecast);
                 newForecast = {} as weatherFormat;
             } else {
-                newForecast.dayHumidity = `${w.relativeHumidity.value}%`
+                //newForecast.dayHumidity = `${w.relativeHumidity.value}%`
                 newForecast.dayPrecipitation = `${w.probabilityOfPrecipitation.value !== null ? w.probabilityOfPrecipitation.value : 0}%`
                 newForecast.dayWind = `${w.windSpeed} ${w.windDirection}`
                 newForecast.dayIcon = w.icon;
@@ -90,7 +90,7 @@ const formatForecast = computed(() => {
             previousDate = wDate;
         } 
         else if(previousDate === wDate) {
-            newForecast.nightHumidity = `${w.relativeHumidity.value}%`
+            //newForecast.nightHumidity = `${w.relativeHumidity.value}%`
             newForecast.nightPrecipitation = `${w.probabilityOfPrecipitation.value !== null ? w.probabilityOfPrecipitation.value : 0}%`
             newForecast.nightWind = `${w.windSpeed} ${w.windDirection}`
             newForecast.nightIcon = w.icon;
@@ -107,7 +107,7 @@ const formatForecast = computed(() => {
             newForecast = {} as weatherFormat;
         }
         else {
-            newForecast.dayHumidity = `${w.relativeHumidity.value}%`
+            //newForecast.dayHumidity = `${w.relativeHumidity.value}%`
             newForecast.dayPrecipitation = `${w.probabilityOfPrecipitation.value !== null ? w.probabilityOfPrecipitation.value : 0}%`
             newForecast.dayWind = `${w.windSpeed} ${w.windDirection}`
             newForecast.dayIcon = w.icon;

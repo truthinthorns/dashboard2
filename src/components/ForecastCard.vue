@@ -1,6 +1,5 @@
 <template>
-    <!-- <img :src="getNewIconSource()" class="card-img-top" alt="..."> -->
-    <div class="card-body">
+        <div class="card-body">
         <h5 class="card-title">{{ forecast.name }}</h5>
         <p class="card-text mt-3"><b>High: </b>{{ forecast.highTemp }}</p>
         <p class="card-text"><b>Low: </b>{{ forecast.lowTemp }}</p>
@@ -54,7 +53,7 @@
                                     :data-bs-parent="`accordion${forecast.number}`">
                                     <div class="accordion-body">
                                         <img :src="getNewIconSource(forecast.nightIcon)">
-                                        <p><b>Detailed Forecast:</b>{{ forecast.nightDetailed }}</p>
+                                        <p><b>Detailed Forecast:</b> {{ forecast.nightDetailed }}</p>
                                         <p><b>Temperature:</b> {{ forecast.lowTemp }}</p>
                                         <p><b>Chance of Rain:</b> {{ forecast.nightPrecipitation }}</p>
                                         <p><b>Relative Humidity:</b> {{ forecast.nightHumidity}}</p>
@@ -72,11 +71,10 @@
 
 <script setup>
 const props = defineProps(['forecast'])
-console.log(props.forecast);
 
 const getNewIconSource = (originalIcon) => {
-    console.log(originalIcon);
-    return originalIcon.replace('medium', 'large')
+    const newSource = import.meta.env.VITE_WEATHER_URL + originalIcon;
+    return newSource.replace('medium', 'large')
 }
 
 </script>

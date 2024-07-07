@@ -2,29 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Today's Forecast</h1>
-                <div v-for="forecast in formatForecast" :key="forecast.number">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="container">
-                                <div class="row align-items-start p-1 m-2">
-                                    <div class="col">
-                                        {{ forecast.temperature }}&#176;{{ forecast.temperatureUnit }}
-                                    </div>
-                                    <div class="col">
-                                        {{ forecast.probabilityOfPrecipitation.value }}%
-                                    </div>
-                                    <div class="col">
-                                        {{ forecast.windSpeed }} {{ forecast.windDirection }} 
-                                    </div>
-                                </div>
-
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col">
                 <h1 class="text-center text-light">Today's Forecast</h1>
                 <table class="table table-striped-columns">
                     <thead>
