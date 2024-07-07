@@ -1,33 +1,13 @@
-# dashboard
+To run this application:
 
-This template should help get you started developing with Vue 3 in Vite.
+1. In the root folder, run `npm run dev`
+2. Pull a mongo image from dockerhub. In my case, I had to run `docker pull mongo:4.4.6`. That may be because I'm on a VM though.
+3. Run the mongo image `docker run --name mongo -p 27017:27017 -d mongo:4.4.6`.
+3. In the backend folder, run `uvicorn server:app --port 5000 --reload`
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+To access Swagger:
+In a browser, go to `localhost:5000/docs`
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+To access the frontend:
+In a browser, go to `localhost:5173`. You must allow location access for the app to function correctly.
