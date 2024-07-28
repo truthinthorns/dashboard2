@@ -73,8 +73,7 @@
 const props = defineProps(['forecast'])
 
 const getNewIconSource = (originalIcon) => {
-    const newSource = import.meta.env.VITE_WEATHER_URL + originalIcon;
-    return newSource.replace('medium', 'large')
+    return originalIcon.replace('medium', 'large')
 }
 
 </script>
