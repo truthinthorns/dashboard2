@@ -11,13 +11,13 @@ export const useWeatherStore = defineStore('weather', {
     actions: {
         async getWeekly() {
             this.weeklyForecast = []
-            const result = await fetch(`${import.meta.env.VITE_ROOT_API}/weekly/${this.coords}`);
-            const forecast = await result.json();
-            this.weeklyForecast = forecast;
+            const result = await fetch(`${import.meta.env.VITE_ROOT_API}/weather/weekly?coords=${this.coords}`);
+            const forecasts = await result.json();
+            this.weeklyForecast = forecasts;
         },
         async getHourly() {
             this.hourlyForecast = []
-            const result = await fetch(`${import.meta.env.VITE_ROOT_API}/hourly/${this.coords}`);
+            const result = await fetch(`${import.meta.env.VITE_ROOT_API}/weather/hourly?coords=${this.coords}`);
             const forecast = await result.json();
             this.hourlyForecast = forecast;
         },

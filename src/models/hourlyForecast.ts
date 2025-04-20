@@ -32,7 +32,7 @@ export default class WeeklyForecast {
       unitCode: String;
       value: number;
     },
-    endTime: Date,
+    endTime: String,
     icon: String,
     isDaytime: boolean,
     name: String,
@@ -45,7 +45,7 @@ export default class WeeklyForecast {
       value: number;
     },
     shortForecast: String,
-    startTime: Date,
+    startTime: String,
     temperature: number,
     temperatureTrend: String,
     temperatureUnit: String,
