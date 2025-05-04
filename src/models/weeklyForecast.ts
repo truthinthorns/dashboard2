@@ -1,54 +1,54 @@
 export default class WeeklyForecast {
-  detailedForecast: String;
+  detailedForecast: string;
   dewpoint: {
-    unitCode: String;
+    unitCode: string;
     value: number;
   };
   endTime: Date;
-  icon: String;
+  icon: string;
   isDaytime: boolean;
-  name: String;
+  name: string;
   probabilityOfPrecipitation: {
-    unitCode: String;
+    unitCode: string;
     value: number;
   };
   relativeHumidity: {
-    unitCode: String;
+    unitCode: string;
     value: number;
   };
-  shortForecast: String;
+  shortForecast: string;
   startTime: Date;
   temperature: number;
-  temperatureTrend: String;
-  temperatureUnit: String;
-  windDirection: String;
-  windSpeed: String;
+  temperatureTrend: string;
+  temperatureUnit: string;
+  windDirection: string;
+  windSpeed: string;
 
   constructor(
-    detailedForecast: String,
+    detailedForecast: string,
     dewpoint: {
-      unitCode: String;
+      unitCode: string;
       value: number;
     },
     endTime: Date,
-    icon: String,
+    icon: string,
     isDaytime: boolean,
-    name: String,
+    name: string,
     probabilityOfPrecipitation: {
-      unitCode: String;
+      unitCode: string;
       value: number;
     },
     relativeHumidity: {
-      unitCode: String;
+      unitCode: string;
       value: number;
     },
-    shortForecast: String,
+    shortForecast: string,
     startTime: Date,
     temperature: number,
-    temperatureTrend: String,
-    temperatureUnit: String,
-    windDirection: String,
-    windSpeed: String
+    temperatureTrend: string,
+    temperatureUnit: string,
+    windDirection: string,
+    windSpeed: string
   ) {
     this.detailedForecast = detailedForecast;
     this.dewpoint = dewpoint;
