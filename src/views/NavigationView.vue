@@ -9,12 +9,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <RouterLink class="nav-link" to="/">Home</RouterLink>
-                    </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" to="/weather">Weekly Weather</RouterLink>
+                        <RouterLink class="nav-link" to="/weather">Weather</RouterLink>
                     </li>
                 </ul>
+                <div class="navbar-text mx-auto ps-auto">{{weatherStore.hourlyForecast[0].temperature}}&#176;F {{weatherStore.hourlyForecast[0].short_forecast}}</div>
+                <RouterLink class="btn btn-primary" to="/login">Login</RouterLink>
             </div>
         </div>
     </nav>
@@ -22,4 +21,8 @@
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useWeatherStore } from '../store/weather';
+
+const weatherStore = useWeatherStore();
+
 </script>

@@ -1,71 +1,39 @@
 export default class WeeklyForecast {
   number: number;
-  name: String;
-  startTime: String;
-  endTime: String;
-  isDaytime: boolean;
+  start_time: String;
+  end_time: String;
   temperature: number;
-  temperatureUnit: String;
-  temperatureTrend: String;
-  probabilityOfPrecipitation: {
-    unitCode: String;
-    value: number;
-  };
-  dewpoint: {
-    unitCode: String;
-    value: number;
-  };
-  relativeHumidity: {
-    unitCode: String;
-    value: number;
-  };
-  windSpeed: String;
-  windDirection: String;
   icon: String;
-  shortForecast: String;
-  detailedForecast: String;
+  wind_speed: String;
+  wind_direction: String;
+  chance_of_rain: number;
+  humidity: number;
+  dewpoint: number;
+  short_forecast: String;
 
   constructor(
     number: number,
-    detailedForecast: String,
-    dewpoint: {
-      unitCode: String;
-      value: number;
-    },
-    endTime: String,
-    icon: String,
-    isDaytime: boolean,
-    name: String,
-    probabilityOfPrecipitation: {
-      unitCode: String;
-      value: number;
-    },
-    relativeHumidity: {
-      unitCode: String;
-      value: number;
-    },
-    shortForecast: String,
-    startTime: String,
+    start_time: String,
+    end_time: String,
     temperature: number,
-    temperatureTrend: String,
-    temperatureUnit: String,
-    windDirection: String,
-    windSpeed: String
+    icon: String,
+    wind_direction: String,
+    wind_speed: String,
+    chance_of_rain: number,
+    humidity: number,
+    dewpoint: number,
+    short_forecast: String,    
   ) {
-    this.detailedForecast = detailedForecast;
-    this.dewpoint = dewpoint;
-    this.endTime = endTime;
-    this.icon = icon;
-    this.isDaytime = isDaytime;
-    this.name = name;
-    this.probabilityOfPrecipitation = probabilityOfPrecipitation;
-    this.relativeHumidity = relativeHumidity;
-    this.shortForecast = shortForecast;
-    this.startTime = startTime;
+    this.number = number;
+    this.start_time = start_time;
+    this.end_time = end_time;
     this.temperature = temperature;
-    this.temperatureTrend = temperatureTrend;
-    this.temperatureUnit = temperatureUnit;
-    this.windDirection = windDirection;
-    this.windSpeed = windSpeed;
+    this.icon = icon;
+    this.wind_direction = wind_direction;
+    this.wind_speed = wind_speed;
+    this.chance_of_rain = chance_of_rain;
+    this.humidity = humidity;
+    this.dewpoint = dewpoint;
+    this.short_forecast = short_forecast;
   }
 }

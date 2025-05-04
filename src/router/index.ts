@@ -1,19 +1,25 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../views/DashboardView.vue'
-import WeeklyWeatherVue from '../views/WeeklyWeather.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import DailyForecastVue from '../views/DailyForecast.vue';
+import LoginVue from '../views/Login.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: DashboardView
+      name: 'home',
+      component: HomeView
     },
     {
       path: '/weather',
       name: 'weather',
-      component: WeeklyWeatherVue
+      component: DailyForecastVue
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginVue
     }
   ]
 })
