@@ -1,17 +1,17 @@
 import type RecoveryQuestions from "./recoveryQuestions";
 
 export default class User {
-    username: String; 
-    email: String;
-    password: String;
+    username: string; 
+    email: string;
+    password: string;
     recovery_questions: RecoveryQuestions[] | null;
-    creation_method: String;
+    creation_method: string;
     constructor(
-        username: String,
-        email: String,
-        password: String,
+        username: string,
+        email: string,
+        password: string,
         recovery_questions: RecoveryQuestions[] | null,
-        creation_method: String,
+        creation_method: string,
     ) {
         this.username = username;
         this.email = email;

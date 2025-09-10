@@ -8,12 +8,13 @@ export const useWeatherStore = defineStore('weather', {
     }),
     actions: {
         async getHourly() {
-            this.hourlyForecast = []
+            this.hourlyForecast = [];
             const result = await fetch(`${import.meta.env.VITE_ROOT_API}/weather/hourly?coords=${this.coords}`);
             const forecast = await result.json();
             this.hourlyForecast = forecast;
         },
         async setCoords(newCoords: string) {
+            console.log("SetCoood");
             this.coords = newCoords;
             await this.getHourly();
         }

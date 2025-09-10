@@ -1,18 +1,17 @@
 <template>
-    <div class="container-fluid">
+    <div class="forecast-container">
         <h1 class="text-center text-light">Next 48 Hours Forecast</h1>
         <div class="row">
-            <!-- Date and forecasts is defined on each day. -->
             <div class="col" v-for="day in divideForecasts()" :key="day.date">
                 <h3 class="text-center text-light">{{day.date}}</h3>
                 <table class="table table-striped-columns">
                     <thead>
                         <tr>
-                            <th scope="col" class="text-center">Time</th>
-                            <th scope="col" class="text-center">Temperature</th>
-                            <th scope="col" class="text-center">Rain</th>
-                            <th scope="col" class="text-center">Wind</th>
-                            <th scope="col" class="text-center">Short Forecast</th>
+                            <th class="text-center">Time</th>
+                            <th class="text-center">Temperature</th>
+                            <th class="text-center">Rain</th>
+                            <th class="text-center">Wind</th>
+                            <th class="text-center">Short Forecast</th>
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
@@ -88,3 +87,85 @@ const formatTime = (fDate: any) => {
     }
 }
 </script>
+
+<style scoped>
+.forecast-container {
+    padding: 2rem;
+    background: linear-gradient(180deg, #1e3a8a, #2563eb);
+}
+
+/* Main title */
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+/* Day header */
+h3 {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+/* Day forecast card */
+.col {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(6px);
+}
+
+/* Table styling */
+.table {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: #2563eb;
+    color: white;
+}
+
+.table-striped-columns tbody tr:nth-of-type(odd) {
+    background-color: rgba(37, 99, 235, 0.05);
+}
+
+.table-striped-columns tbody tr:hover {
+    background-color: rgba(37, 99, 235, 0.15);
+    transition: background-color 0.2s ease-in-out;
+}
+
+th,
+td {
+    vertical-align: middle !important;
+    padding: 0.6rem;
+}
+
+td:last-child {
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+th[scope="row"] b {
+    font-weight: 700;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .col {
+        margin-bottom: 2rem;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1.1rem;
+    }
+}
+</style>

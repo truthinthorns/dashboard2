@@ -2,7 +2,10 @@ import { defineStore } from "pinia";
 import User from "../models/user";
 
 export const useUserStore = defineStore("user", {
-  state: () => ({}),
+  state: () => ({
+    signedIn: false,
+    currentUser: null as User | null
+  }),
   actions: {
     async signup(user: User) {
       const response = await fetch(`${import.meta.env.VITE_ROOT_API}/users`, {
@@ -14,9 +17,11 @@ export const useUserStore = defineStore("user", {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Sign up failed");
+        return false;
       }
+      const responseUser = await response.json();
+      if (await this.login(responseUser.username, responseUser.password) === true)
+        return true;
     },
     async login(username: string, password: string) {
       const response = await fetch(`${import.meta.env.VITE_ROOT_API}/login`, {
@@ -33,23 +38,28 @@ export const useUserStore = defineStore("user", {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.detail || "Login failed");
+        if (errorData.detail === "Incorrect username or password")
+          return "Incorrect username or password";
+        else
+          return false;
       }
-      console.log(await response.json())
+      const responseJson = await response.json();
+      this.signedIn = true;
+      this.currentUser = responseJson["user"];
       return true;
     },
     async logout() {
-        const response = await fetch(`${import.meta.env.VITE_ROOT_API}/logout`, {
-            method: 'POST',
-            credentials: 'include'
-          });
-    
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.detail || "Logout failed");
-          }
-          console.log(await response.json())
-          return true;
+      const response = await fetch(`${import.meta.env.VITE_ROOT_API}/logout`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        return false;
+      }
+      this.signedIn = false;
+      this.currentUser = null;
+      return true;
     }
   },
 });
