@@ -1,8 +1,7 @@
 export default class WeeklyForecast {
   number: number;
   name: String;
-  startTime: String;
-  endTime: String;
+  startTime: string | Date;
   isDaytime: boolean;
   temperature: number;
   temperatureUnit: String;
@@ -32,7 +31,6 @@ export default class WeeklyForecast {
       unitCode: String;
       value: number;
     },
-    endTime: Date,
     icon: String,
     isDaytime: boolean,
     name: String,
@@ -45,16 +43,16 @@ export default class WeeklyForecast {
       value: number;
     },
     shortForecast: String,
-    startTime: Date,
+    startTime: string| Date,
     temperature: number,
     temperatureTrend: String,
     temperatureUnit: String,
     windDirection: String,
     windSpeed: String
   ) {
+    this.number = number;
     this.detailedForecast = detailedForecast;
     this.dewpoint = dewpoint;
-    this.endTime = endTime;
     this.icon = icon;
     this.isDaytime = isDaytime;
     this.name = name;
