@@ -1,176 +1,73 @@
 <template>
-    <h1>{{ userStore.signedIn ? "Logout" : newAccount ? "Create Account" : "Login" }}</h1>
+    <h1>Login</h1>
     <div class="login-container">
-        <div v-if="!userStore.signedIn">
-            <form v-if="newAccount === true" @submit.prevent="signup">
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" v-model="username" @blur="validateCreateUsername">
-                    <span v-if="errors.username" class="error">{{ errors.username }}</span>
-                </div>
-                <div>
-                    <label for="email">Email</label>
-                    <input type="email" id="email" v-model="email" @blur="validateCreateEmail">
-                    <span v-if="errors.email" class="error">{{ errors.email }}</span>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" v-model="password" @blur="validateCreatePassword">
-                    <span v-if="errors.password" class="error">{{ errors.password }}</span>
-                </div>
-                <button class="btn btn-primary" type="submit" :disabled="!createButtonEnabled()">Create Account</button>
-            </form>
-            <form v-else @submit.prevent="login">
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" v-model="username">
-                    <span v-if="errors.username" class="error">{{ errors.username }}</span>
-                </div>
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" v-model="password">
-                    <span v-if="errors.password" class="error">{{ errors.password }}</span>
-                </div>
-                <button class="btn btn-primary" type="submit">Login</button>
-            </form>
-
-            <div v-if="newAccount === true" class="toggle-container">
-                <span>Already have an account?</span>
-                <button @click="newAccount = false; errors = { username: '', email: '', password: '' }">
-                    Login
-                </button>
+        <form @submit.prevent="login">
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id="username" v-model="username">
+                <span v-if="errors.username" class="error">{{ errors.username }}</span>
             </div>
 
-            <div v-else class="toggle-container">
-                <span>Don't have an account?</span>
-                <button @click="newAccount = true; errors = { username: '', email: '', password: '' }">
-                    Create Account
-                </button>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id="password" v-model="password">
+                <span v-if="errors.password" class="error">{{ errors.password }}</span>
             </div>
+
+            <button class="btn btn-primary" type="submit">Login</button>
+        </form>
+
+        <div class="toggle-container">
+            <span>Don't have an account?</span>
+            <router-link to="/signup" class="btn-link">Create Account</router-link>
         </div>
     </div>
-
-    <button v-if="userStore.signedIn" class="btn btn-primary" @click="logout">Logout</button>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { ref, reactive, nextTick } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { useUserStore } from '../store/user';
-import User from "../models/user";
 
+const router = useRouter();
+const route = useRoute();
 const toast = useToast();
 const userStore = useUserStore();
 
-const username = ref();
-const email = ref();
-const password = ref();
-const newAccount = ref(false);
-
-const errors = reactive({ username: '', email: '', password: '' });
-
-
-const validateCreateUsername = () => {
-    errors.username = '';
-    const regex = /^[A-Za-z0-9_]+$/;
-    if (!username.value) {
-        errors.username = 'Username is required';
-    } else if (username.value.length < 6) {
-        errors.username = 'Username must be at least 3 characters long';
-    } else if (username.value.length > 32) {
-        errors.username = 'Username must be at most 32 characters long';
-    } else if (!regex.test(username.value)) {
-        errors.username = 'Username can only contain letters, numbers, and underscores';
-    }
-}
-
-const validateCreateEmail = () => {
-    errors.email = ''
-    if (!email.value) {
-        errors.email = 'Email is required'
-    } else if (!/\S+@\S+\.\S+/.test(email.value)) {
-        errors.email = 'Email is invalid'
-    }
-}
-
-const validateCreatePassword = () => {
-    errors.password = ''
-    if (!password.value) {
-        errors.password = 'Password is required';
-    } else if (password.value.length < 8) {
-        errors.password = 'Password must be at least 8 characters long';
-    } else if (password.value.length > 48) {
-        errors.password = 'Password must be at most 48 characters long';
-    }
-}
-
-const isValidPassword = () => {
-    if (!password.value || password.value.length < 8 || password.value.length > 48) {
-        return false;
-    }
-    return true;
-}
-
-const isValidEmail = () => {
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-        return false;
-    }
-    return true;
-}
-
-const isValidUsername = () => {
-    if (!username.value || username.value.length < 6 || username.value.length > 32 || !/^[A-Za-z0-9_]+$/.test(username.value)) {
-        return false;
-    }
-    return true;
-}
-
-const createButtonEnabled = () => {
-    return isValidUsername() && isValidEmail() && isValidPassword();
-}
-
-const signup = async () => {
-    validateCreateEmail();
-    validateCreatePassword();
-    validateCreateUsername();
-    if (!createButtonEnabled())
-        return;
-    const response = await userStore.signup(new User(username.value, email.value, password.value, [], "web"));
-    if (response === true) {
-        username.value = "";
-        email.value = "";
-        password.value = "";
-        toast.success('Successfully created account!');
-    } else {
-        toast.error('Failed to create account!');
-    }
-}
+const username = ref('');
+const password = ref('');
+const errors = reactive({ username: '', password: '' });
 
 const login = async () => {
-    const response = await userStore.login(username.value, password.value);
-    if (response === true) {
-        username.value = "";
-        password.value = "";
-        toast.success('Successfully logged in!');
-    } else {
-        if (response !== false)
-            toast.error(response!);
-        else
-            toast.error('Failed to log in!');
-    }
-}
+    // Basic validation
+    errors.username = username.value ? '' : 'Username required';
+    errors.password = password.value ? '' : 'Password required';
+    if (errors.username || errors.password) return;
 
-const logout = async () => {
-    if (await userStore.logout()) {
-        toast.success('Successfully logged out!');
+    const response = await userStore.login(username.value, password.value);
+
+    if (response === true) {
+        toast.success('Successfully logged in!');
+
+        await nextTick();
+
+        // Compute redirect safely
+        let redirectPath = '/';
+        const redirectQuery = route.query.redirect;
+
+        if (typeof redirectQuery === 'string') redirectPath = redirectQuery;
+        else if (Array.isArray(redirectQuery) && redirectQuery.length > 0)
+            redirectPath = redirectQuery[0];
+
+        await router.push('/');
+    } else {
+        toast.error(response || 'Login failed');
     }
-    else {
-        toast.error('Failed to log out!');
-    }
-}
+};
 </script>
 
-<style>
+<style scoped>
 /* Container */
 .login-container {
     display: flex;
@@ -268,7 +165,7 @@ input:focus {
     cursor: not-allowed;
 }
 
-/* Toggle link-style buttons */
+/* Toggle link-style buttons (for signup/login link) */
 .toggle-container {
     margin-top: 1rem;
     text-align: center;
@@ -276,7 +173,8 @@ input:focus {
     color: #4b5563;
 }
 
-.toggle-container button {
+.toggle-container button,
+.toggle-container a {
     background: none;
     border: none;
     padding: 0;
@@ -287,7 +185,8 @@ input:focus {
     transition: color 0.2s ease;
 }
 
-.toggle-container button:hover {
+.toggle-container button:hover,
+.toggle-container a:hover {
     color: #2563eb;
     text-decoration: underline;
 }

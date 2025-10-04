@@ -14,7 +14,6 @@ export const useWeatherStore = defineStore('weather', {
             this.hourlyForecast = forecast;
         },
         async setCoords(newCoords: string) {
-            console.log("SetCoood");
             this.coords = newCoords;
             await this.getHourly();
         }

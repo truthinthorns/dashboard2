@@ -1,6 +1,6 @@
 <template>
     <div class="forecast-container">
-        <h1 class="text-center text-light">Next 48 Hours Forecast</h1>
+        <h1 v-if="!props.today" class="text-center text-light">Next 48 Hours Forecast</h1>
         <div class="row">
             <div class="col" v-for="day in divideForecasts()" :key="day.date">
                 <h3 class="text-center text-light">{{day.date}}</h3>
@@ -35,20 +35,28 @@ import hourlyForecast from '../models/hourlyForecast';
 
 const weatherStore = useWeatherStore();
 
+const props = defineProps({
+  today: Boolean
+})
 
 const divideForecasts = () => {
+    // all the formatted forecasts
     const days: Object[] = [];
+    // the forecast for each day
     let forecasts: hourlyForecast[] = [];
+    // the tz the user is in
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // get the current Date
     let currentDay = new Date((typeof weatherStore.hourlyForecast[0].start_time === "string" ? new Date(weatherStore.hourlyForecast[0].start_time) : weatherStore.hourlyForecast[0].start_time).toLocaleString("en-US", { timeZone: tz }));
+    // get the date of the current Date
     const startDay = currentDay.getDate();
     for (const forecast of weatherStore.hourlyForecast) {
         const day = new Date((typeof forecast.start_time === "string" ? new Date(forecast.start_time) : forecast.start_time).toLocaleString("en-US", { timeZone: tz }));
         // break if we're more than 2 days out.
         if (day.getDate() > startDay+2) break;
+        if (props.today && day.getDate() !== currentDay.getDate()) break
         if (day.getDate() === currentDay.getDate()) {
             forecasts.push(forecast);
-            // console.log(currentDay.getDate(), day.getDate());
         } else {
             let dateValue = "";
             // decide what value to put for date
