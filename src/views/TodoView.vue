@@ -88,7 +88,7 @@ function addTag() {
   newTag.value = ''
 }
 
-function removeTag(index) {
+function removeTag(index: number) {
   tags.value.splice(index, 1)
 }
 
@@ -115,14 +115,14 @@ const updateTodo = async (todo: Todo) => {
   const updatedTodo = await todoStore.updateTodo(todo);
   return updatedTodo;
 }
-const deleteTodo = async (id) => {
+const deleteTodo = async (id: number) => {
   const success = await todoStore.deleteTodo(id);
   return success;
 }
 
 const filteredTodos = computed(() => {
   if (!searchQuery.value) return todoList.value
-  return todoList.value.filter(todo =>
+  return todoList.value.filter((todo: Todo) =>
     todo.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
     todo.description.toLowerCase().includes(searchQuery.value.toLowerCase())
   )

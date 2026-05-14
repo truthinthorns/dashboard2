@@ -53,7 +53,7 @@ const login = async () => {
         await nextTick();
 
         // Compute redirect safely
-        let redirectPath = '/';
+        let redirectPath = null;
         const redirectQuery = route.query.redirect;
 
         if (typeof redirectQuery === 'string') redirectPath = redirectQuery;

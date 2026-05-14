@@ -39,9 +39,14 @@ const props = defineProps({
   today: Boolean
 })
 
+interface Day {
+  date: string
+  forecasts: hourlyForecast[]
+}
+
 const divideForecasts = () => {
     // all the formatted forecasts
-    const days: Object[] = [];
+    const days: Day[] = [];
     // the forecast for each day
     let forecasts: hourlyForecast[] = [];
     // the tz the user is in
