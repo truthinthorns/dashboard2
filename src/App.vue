@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
-import NavigationView from './views/NavigationView.vue';
-import { useWeatherStore } from './store/weather';
-
+import { RouterView } from "vue-router";
+import NavigationView from "./views/NavigationView.vue";
+import { useWeatherStore } from "./store/weather";
 
 const weatherStore = useWeatherStore();
 const locationAllowed = (position: any) => {
-  weatherStore.setCoords(position.coords.latitude + ","+position.coords.longitude);
-}
+  weatherStore.setCoords(
+    position.coords.latitude + "," + position.coords.longitude,
+  );
+};
 navigator.geolocation.getCurrentPosition(locationAllowed);
-
-
+console.log(import.meta.env)
+console.log(import.meta.env.VITE_API_URL);
 </script>
 
 <template>
@@ -20,6 +21,4 @@ navigator.geolocation.getCurrentPosition(locationAllowed);
   </div>
 </template>
 
-<style>
-
-</style>
+<style></style>
